@@ -27,7 +27,7 @@
 				echo '<td style="border-right: 2px solid #632F8D; height:100%; width: 10%; text-align:center;"><b>Quantity</b><br />' . $vals . '</td>';
 				echo '<td style="height:100%; width: 25%; text-align:center;"><b>Subtotal</b><br />R ' . ($vals * $row['price']) . '</td>';
 				echo '</tr>';
-				echo '</table>';//	
+				echo '</table>';	
 			}
 			$counter++;
 		}
