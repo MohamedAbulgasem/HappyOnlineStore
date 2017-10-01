@@ -115,6 +115,9 @@
 							$updatedQuantity = $existingQuantity - $orderedQuantity;
 							$total_amount = $orderedQuantity * $price;
 					}
+					else {
+						echo '<script language="javascript">alert("Problems!"); </script>';
+					}
 
 					//2_ Insert into orderlines table
 							//Retriving order_num from orders table
@@ -133,9 +136,8 @@
 					$dbc->query($updateItemQuantity);
 
 				}
-				echo '<script language="javascript">alert("Order Successful!"); </script>';
 				//redirect to the postcheckout page
-				header("Location: postcheckout.php");
+				echo '<script language="javascript">window.location = "postcheckout.php"</script>';
 		}
 
 		echo '<table style="width:32%; height: 100px; border: 2px solid #632F8D; margin-top: 10px; margin-bottom: 10px; margin-right: 145px; float: right;">';
