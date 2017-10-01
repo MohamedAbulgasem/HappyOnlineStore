@@ -136,6 +136,9 @@
 					$dbc->query($updateItemQuantity);
 
 				}
+				//unset Cart
+				unset($items);
+				$_SESSION['cart'] = $items;
 				//redirect to the postcheckout page
 				echo '<script language="javascript">window.location = "postcheckout.php"</script>';
 		}
