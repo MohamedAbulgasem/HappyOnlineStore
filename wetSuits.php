@@ -27,7 +27,6 @@
 										$orderedQty = $Cart[$Item];
 										if(($orderedQty + $qty) <= $row['quantity']){
 										$Cart[$Item] += $qty; //increment
-										echo '<script>alert("item ' . $Item . ' is added, Qty : ' . $Cart[$Item] .  '")</script>';//SUCCESS
 										}
 										else echo '<script>alert("The Quantity You Ordered For This Item is Unavailable, Please Choose a Lower Quantity!")</script>';
 									}
