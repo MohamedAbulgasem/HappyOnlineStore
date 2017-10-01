@@ -32,14 +32,12 @@
 									}
 									else{
 										$Cart[$Item] = $qty; //assign the qty
-										echo '<script>alert("item ' . $Item . ' is added, Qty : ' . $Cart[$Item] .  '")</script>';//SUCCESS
 									}
 								}
 								//if the cart session isn't created then create a new array to be the cart session
 								else{
 									$Cart = array();
 									$Cart[$Item] = $qty;
-									echo '<script>alert("item ' . $Item . ' is added, Qty : ' . $Cart[$Item] .  '")</script>';//SUCCESS
 								}
 							}
 							else echo '<script>alert("The Quantity You Ordered For This Item is Unavailable, Please Choose a Possible Quantity!")</script>';

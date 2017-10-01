@@ -98,6 +98,7 @@
 				$orderedQuantity = '';
 				$updatedQuantity = '';
 				$total_amount = '';
+				$order_num = '';
 
 				foreach($items as $key => $vals){
 
@@ -115,20 +116,19 @@
 							$updatedQuantity = $existingQuantity - $orderedQuantity;
 							$total_amount = $orderedQuantity * $price;
 					}
-					else {
-						echo '<script language="javascript">alert("Problems!"); </script>';
-					}
 
 					//2_ Insert into orderlines table
 							//Retriving order_num from orders table
-							$ordernumQuery = "SELECT order_num FROM orders WHERE total_amount = '" . $total . "'";
+							$ordernumQuery = 'SELECT * FROM orders ORDER BY order_num DESC LIMIT 1';
 							$ordernumResult = $dbc->query($ordernumQuery);
-							$ordernumRow = $ordernumResult->fetch_array();
-							$order_num = $ordernumRow['order_num'];
-
+							if($queryRslt){
+								$ordernumRow = $ordernumResult->fetch_array();
+									$order_num = $ordernumRow['order_num'];
+							}
 
 					$insertOrder = "INSERT INTO orderlines (orderline, item_name, category, price, quantity, total_amount, order_num)
 														VALUES (NULL, '$item_name', '$category', '$price', '$orderedQuantity', '$total_amount', '$order_num'); ";
+					$dbc->query($insertOrder);
 
 					//3_ Update inventory table
 					$updateItemQuantity = "UPDATE inventory SET quantity = " . $updatedQuantity . "
