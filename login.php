@@ -1,7 +1,7 @@
 <?php
     /*
      *      *********************************************************
-     *      * PROGRAMMER:                                          *
+     *      * PROGRAMMER:                                           *
      *      *             Mohamed Abulgasem - 215067762             *
      *      *                                                       *
      *      *********************************************************
@@ -45,9 +45,10 @@
 		        if($result = mysqli_query($dbc, $query)){
 			        $row = mysqli_fetch_array($result);
 			        if($row['email_address'] == $email && $row['password'] == $pass){
-			            //assign first name & email to session variables
+			            //assign first name, email & id to session variables
 			            $_SESSION['user_name'] = $row['first_name'];
-				        $_SESSION['email_address'] = $row['email_address'];
+				          $_SESSION['email_address'] = $row['email_address'];
+                  $_SESSION['customer_id'] = $row['customer_id'];
 			            //redirect to the home page
 				        header("Location: index.php");
 			        }

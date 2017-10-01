@@ -2,11 +2,9 @@
 	include('header.php');
 ?>
     <div class="content">
-
-        <h1>Surf Boards</h1>
+        <h1 style="color:#632F8D;">Surf Boards</h1>
 
 	    <?php
-			include('dbc.php');
 			$surfBoardsQuery = "SELECT * FROM inventory WHERE category = 'Surf Boards'";
 			$queryResult = $dbc->query($surfBoardsQuery);
 
@@ -19,11 +17,11 @@
 
 						$Item = $row['item_id'];
 						if(isset($_POST[$Item])){		//compare each item id in the db to the itemId submitted by the user
-							if($qty <= $row['quantity']){		//check if entered quantity is <= available quantity
+							if($qty <= $row['quantity'] && $qty > 0){		//check if entered quantity is <= available quantity
 								//check if the cart session already exists
 								if(isset($_SESSION['cart'])){
 									//assign it to $Cart
-									$Cart = unserialize($_SESSION['cart']);
+									$Cart = $_SESSION['cart'];
 									//check if the specific item added before already
 									if(isset($Cart[$Item])){
 										$orderedQty = $Cart[$Item];
@@ -45,7 +43,7 @@
 									echo '<script>alert("item ' . $Item . ' is added, Qty : ' . $Cart[$Item] .  '")</script>';//SUCCESS
 								}
 							}
-							else echo '<script>alert("The Quantity You Ordered For This Item is Unavailable, Please Choose a Lower Quantity!")</script>';
+							else echo '<script>alert("The Quantity You Ordered For This Item is Unavailable, Please Choose a Possible Quantity!")</script>';
 						}
 					}
 				}
@@ -84,7 +82,7 @@
     </div>
 <?php
 	if(isset($Cart)){
-		$_SESSION['cart'] = serialize($Cart);
+		$_SESSION['cart'] = $Cart;
 	}
 	include('footer.php');
 ?>

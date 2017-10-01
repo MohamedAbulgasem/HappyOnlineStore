@@ -2,28 +2,26 @@
 	include('header.php');
 ?>
     <div class="content">
-
-        <h1>Wet Suits</h1>
+        <h1 style="color:#632F8D;">Wet Suits</h1>
 
 	    <?php
-            include('dbc.php');
             $wetSuitsQuery = "SELECT * FROM inventory WHERE category = 'Wet Suits'";
             $queryResult = $dbc->query($wetSuitsQuery);
-			
+
             if($_SERVER['REQUEST_METHOD'] == 'POST') {		//if "Add To Cart" is clicked
 				if($queryResult){		//Query the database for all item
-				
+
 					$qty = $_POST['quantity'];//assign quantity of the submitted item to $qty
-					
+
 					while($row = $queryResult->fetch_array()){	//Loop through each item
-						
+
 						$Item = $row['item_id'];
-						if(isset($_POST[$Item])){		//compare each item id in the db to the itemId submitted  
-							if($qty <= $row['quantity']){		//check if entered quantity is <= available quantity
-								//check if the cart session already exists 
+						if(isset($_POST[$Item])){		//compare each item id in the db to the itemId submitted
+							if($qty <= $row['quantity'] && $qty > 0){		//check if entered quantity is <= available quantity
+								//check if the cart session already exists
 								if(isset($_SESSION['cart'])){
-									//assign it to $Cart 
-									$Cart = unserialize($_SESSION['cart']);
+									//assign it to $Cart
+									$Cart = $_SESSION['cart'];
 									//check if the specific item added before already
 									if(isset($Cart[$Item])){
 										$orderedQty = $Cart[$Item];
@@ -39,18 +37,18 @@
 									}
 								}
 								//if the cart session isn't created then create a new array to be the cart session
-								else{ 
-									$Cart = array(); 
+								else{
+									$Cart = array();
 									$Cart[$Item] = $qty;
 									echo '<script>alert("item ' . $Item . ' is added, Qty : ' . $Cart[$Item] .  '")</script>';//SUCCESS
 								}
 							}
-							else echo '<script>alert("The Quantity You Ordered For This Item is Unavailable, Please Choose a Lower Quantity!")</script>';
-						}						
+							else echo '<script>alert("The Quantity You Ordered For This Item is Unavailable, Please Choose a Possible Quantity!")</script>';
+						}
 					}
 				}
 			}
-		
+
             if($queryResult){
                 while($row = $queryResult->fetch_array()){
                     echo '<div class="item">';
@@ -84,7 +82,7 @@
     </div>
 <?php
 	if(isset($Cart)){
-		$_SESSION['cart'] = serialize($Cart);
+		$_SESSION['cart'] = $Cart;
 	}
 	include('footer.php');
 ?>

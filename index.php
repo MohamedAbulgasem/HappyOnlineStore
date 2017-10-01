@@ -2,10 +2,9 @@
     include('header.php');
 ?>
 		<div class="content">
-			<h1 style="text-align: center;">Home</h1>
+			<h1 style="color:#632F8D;">Home</h1>
 			<br />
 		</div>
 <?php
     include('footer.php');
 ?>
-

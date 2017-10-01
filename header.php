@@ -6,16 +6,20 @@
 	<head>
 		<title>Happy Online Store</title>
 		<meta charset="UTF-8">
-        <link rel="icon" href="style/logo.png">
+    <link rel="icon" href="style/logo.png">
 		<link rel="stylesheet" type="text/css" href="style/css.css" />
 	<body>
 		<?php
+			//Establishing database connection for all the shopping cart operations
+			include('dbc.php');
+
+			//if user is logged in
 			if(isset($_SESSION['user_name'])){
 				$member = $_SESSION['user_name'];
 				echo"<p style='text-align: right; position: absolute; top:10px; right: 50px;'>Welcome to our store <b>" . $member . "</b>. (<a href='logout.php'>Logout</a>)</p>";
 			}
 			else echo "<p id='welcome'>Welcome to our store. Please <a href='login.php'>Login</a> or <a href='registration.php'>Register</a></p>";
-			
+
 			//If Cart icon is clicked
 			if(isset($_POST['action'])){
 				if(isset($_SESSION['cart'])){
@@ -39,9 +43,9 @@
 			<a href="javascript:void(0);" class="icon" onclick="responsive()">&#9776;</a>
 		</div>
 		<form action="header.php" method="POST" <?php if(isset($_SESSION['cart'])&&isset($_SESSION['user_name'])) echo '&#32;'; else echo 'target="votar"' ?>>
-            <input type="image" src="style/cart.png" alt="Submit" width="30px" height="30px" style="text-align: right; position: absolute; top: 5px; right: 370px;">
-			<input type="hidden" name="action">
-        </form>
+        <input type="image" src="style/cart.png" alt="Submit" width="30px" height="30px" style="text-align: right; position: absolute; top: 5px; right: 370px;">
+			  <input type="hidden" name="action">
+    </form>
 	<script type="text/javascript">
          function responsive() {
              var x = document.getElementById("myTopnav");
