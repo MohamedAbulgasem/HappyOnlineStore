@@ -1,0 +1,2 @@
+- Make sure to create a database called 'shopping_cart' and import the sql file into it
+- Make sure that phpMyAdmin username is 'root' and pass is '' otherwise it needs to be changed within the code  
