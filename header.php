@@ -42,7 +42,7 @@
 			<a href="about.php">About Our Store</a>
 			<a href="javascript:void(0);" class="icon" onclick="responsive()">&#9776;</a>
 		</div>
-		<form action="header.php" method="POST" <?php if(isset($_SESSION['cart'])&&isset($_SESSION['user_name'])) echo '&#32;'; else echo 'target="votar"' ?>>
+		<form action="header.php" method="POST" <?php if(!(isset($_SESSION['cart'])) && !(isset($_SESSION['user_name']))) echo 'target="votar"' ?>>
         <input type="image" src="style/cart.png" alt="Submit" width="30px" height="30px" style="text-align: right; position: absolute; top: 5px; right: 370px;">
 			  <input type="hidden" name="action">
     </form>
