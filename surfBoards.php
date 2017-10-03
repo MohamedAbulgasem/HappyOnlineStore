@@ -26,18 +26,39 @@
 									if(isset($Cart[$Item])){
 										$orderedQty = $Cart[$Item];
 										if(($orderedQty + $qty) <= $row['quantity']){
-										$Cart[$Item] += $qty; //increment
+											$Cart[$Item] += $qty; //increment
+											//SUCCESS MESSAGE
+											if($qty == 1){
+												echo '<script>alert("1 Item Added To Your Cart")</script>';
+											}
+											else if($qty > 1){
+												echo '<script>alert("' . $qty . ' Items Added To Your Cart")</script>';
+											}
 										}
 										else echo '<script>alert("The Quantity You Ordered For This Item is Unavailable, Please Choose a Lower Quantity!")</script>';
 									}
 									else{
 										$Cart[$Item] = $qty; //assign the qty
+										//SUCCESS MESSAGE
+										if($qty == 1){
+											echo '<script>alert("1 Item Added To Your Cart")</script>';
+										}
+										else if($qty > 1){
+											echo '<script>alert("' . $qty . ' Items Added To Your Cart")</script>';
+										}
 									}
 								}
 								//if the cart session isn't created then create a new array to be the cart session
 								else{
 									$Cart = array();
 									$Cart[$Item] = $qty;
+									//SUCCESS MESSAGE
+									if($qty == 1){
+										echo '<script>alert("1 Item Added To Your Cart")</script>';
+									}
+									else if($qty > 1){
+										echo '<script>alert("' . $qty . ' Items Added To Your Cart")</script>';
+									}
 								}
 							}
 							else echo '<script>alert("The Quantity You Ordered For This Item is Unavailable, Please Choose a Possible Quantity!")</script>';
