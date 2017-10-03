@@ -5,10 +5,10 @@
         <h1 style="color:#632F8D;">Wet Suits</h1>
 
 	    <?php
-            $wetSuitsQuery = "SELECT * FROM inventory WHERE category = 'Wet Suits'";
-            $queryResult = $dbc->query($wetSuitsQuery);
+        $wetSuitsQuery = "SELECT * FROM inventory WHERE category = 'Wet Suits'";
+        $queryResult = $dbc->query($wetSuitsQuery);
 
-            if($_SERVER['REQUEST_METHOD'] == 'POST') {		//if "Add To Cart" is clicked
+        if($_SERVER['REQUEST_METHOD'] == 'POST') {		//if "Add To Cart" is clicked
 				if($queryResult){		//Query the database for all item
 
 					$qty = $_POST['quantity'];//assign quantity of the submitted item to $qty
@@ -17,7 +17,7 @@
 
 						$Item = $row['item_id'];
 						if(isset($_POST[$Item])){		//compare each item id in the db to the itemId submitted
-							if($qty <= $row['quantity'] && $qty > 0){		//check if entered quantity is <= available quantity
+							if($qty <= $row['quantity'] && $qty > 0){		//check if entered quantity is <= available quantity and > 0
 								//check if the cart session already exists
 								if(isset($_SESSION['cart'])){
 									//assign it to $Cart
@@ -27,17 +27,29 @@
 										$orderedQty = $Cart[$Item];
 										if(($orderedQty + $qty) <= $row['quantity']){
 										$Cart[$Item] += $qty; //increment
+										if($qty == 1)
+											echo '<script>alert(' . $qty . '"Item Added To Your Cart")</script>';//SUCCESS
+										if($qty > 1)
+											echo '<script>alert(' . $qty . '"Items Added To Your Cart")</script>';//SUCCESS
 										}
 										else echo '<script>alert("The Quantity You Ordered For This Item is Unavailable, Please Choose a Lower Quantity!")</script>';
 									}
 									else{
 										$Cart[$Item] = $qty; //assign the qty
+										if($qty == 1)
+											echo '<script>alert(' . $qty . '"Item Added To Your Cart")</script>';//SUCCESS
+										if($qty > 1)
+											echo '<script>alert(' . $qty . '"Items Added To Your Cart")</script>';//SUCCESS
 									}
 								}
 								//if the cart session isn't created then create a new array to be the cart session
 								else{
 									$Cart = array();
 									$Cart[$Item] = $qty;
+									if($qty == 1)
+										echo '<script>alert("Item Added To Your Cart")</script>';//SUCCESS
+									if($qty > 1)
+										echo '<script>alert("Items Added To Your Cart")</script>';//SUCCESS
 								}
 							}
 							else echo '<script>alert("The Quantity You Ordered For This Item is Unavailable, Please Choose a Possible Quantity!")</script>';
